@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07110f">
+  <meta name="description" content="KGT Cyber Defense — tableau de bord de simulation et de sensibilisation à la cybersécurité en Tunisie.">
+  <title>KGT Cyber Defense | Tunisia SOC</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="scanline" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#overview" aria-label="KGT Cyber Defense accueil">
+      <span class="brand-mark">K<span>G</span>T</span>
+      <span><strong>KGT CYBER DEFENSE</strong><small>TUNISIA · SECURITY OPERATIONS</small></span>
+    </a>
+    <div class="top-status"><span class="pulse-dot"></span><span>SIMULATION ACTIVE</span><span class="clock" id="clock">--:--:--</span></div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">☰</button>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-label">CONSOLE</div>
+      <a class="nav-link active" href="#overview"><span>◈</span> Vue d'ensemble</a>
+      <a class="nav-link" href="#radar"><span>◎</span> Cyber Radar</a>
+      <a class="nav-link" href="#map"><span>⌖</span> Carte de Tunisie</a>
+      <a class="nav-link" href="#terminal"><span>›_</span> Terminal</a>
+      <a class="nav-link" href="#satellite"><span>✦</span> Satellite & SIM</a>
+      <a class="nav-link" href="#password"><span>⌁</span> Password Lab</a>
+      <a class="nav-link" href="#website"><span>↗</span> Website Lab</a>
+      <a class="nav-link" href="#audio"><span>◖</span> Audio Monitor</a>
+      <div class="sidebar-bottom">
+        <div class="mini-shield">⬡</div>
+        <strong>MODE DÉMO</strong>
+        <p>Les événements, positions et identifiants affichés sont fictifs.</p>
+        <span class="version">KGT CONSOLE v1.0.0</span>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <section class="hero" id="overview">
+        <div>
+          <div class="eyebrow"><span class="pulse-dot"></span> CENTRE DES OPÉRATIONS CYBERNÉTIQUES</div>
+          <h1>Security <span>Operations</span><br>Center <small>/ TUNISIA</small></h1>
+          <p class="hero-copy">Environnement interactif de simulation, de visualisation réseau et de sensibilisation à la cybersécurité.</p>
+        </div>
+        <div class="hero-badge"><div class="badge-ring">KGT</div><span>DEFENSE<br>BY DESIGN</span></div>
+      </section>
+
+      <section class="stats-grid" aria-label="Indicateurs de démonstration">
+        <article class="stat-card"><div class="stat-head"><span>ÉTAT DU SYSTÈME</span><span class="status-pill">NORMAL</span></div><div class="stat-value">OPÉRATIONNEL</div><div class="stat-foot"><span class="tiny-bars"><i></i><i></i><i></i><i></i><i></i></span> Tous les modules locaux répondent</div></article>
+        <article class="stat-card"><div class="stat-head"><span>ÉVÉNEMENTS SIMULÉS</span><span class="stat-icon">⌁</span></div><div class="stat-value" id="eventCount">1,284</div><div class="stat-foot"><span class="green-text">+12,8%</span> par rapport à la démo précédente</div></article>
+        <article class="stat-card"><div class="stat-head"><span>NŒUDS DE DÉMO</span><span class="stat-icon">⌖</span></div><div class="stat-value">07 <small>/ 07</small></div><div class="stat-foot"><span class="green-text">●</span> Villes tunisiennes simulées</div></article>
+        <article class="stat-card"><div class="stat-head"><span>MENACES RÉELLES</span><span class="status-pill muted">NON CONNECTÉ</span></div><div class="stat-value">— — —</div><div class="stat-foot">Aucune source de menace externe connectée</div></article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel radar-panel" id="radar">
+          <div class="panel-heading"><div><span class="panel-kicker">MODULE 01 / DÉTECTION</span><h2>Cyber Radar</h2></div><span class="live-tag"><i></i> LIVE DEMO</span></div>
+          <div class="radar-layout">
+            <div class="radar" role="img" aria-label="Radar animé de simulation">
+              <div class="radar-ring ring-one"></div><div class="radar-ring ring-two"></div><div class="radar-ring ring-three"></div>
+              <div class="radar-cross cross-h"></div><div class="radar-cross cross-v"></div><div class="radar-sweep"></div>
+              <span class="blip blip-one"></span><span class="blip blip-two"></span><span class="blip blip-three"></span><span class="blip blip-four"></span>
+              <span class="radar-center"></span><span class="radar-label label-n">N</span><span class="radar-label label-e">E</span><span class="radar-label label-s">S</span><span class="radar-label label-w">W</span>
+            </div>
+            <div class="radar-data"><div class="data-row"><span>Portée simulée</span><strong>250 km</strong></div><div class="data-row"><span>Balises visibles</span><strong class="green-text" id="beaconCount">04</strong></div><div class="data-row"><span>Fréquence</span><strong>9.6 GHz</strong></div><div class="data-row"><span>Mode</span><strong>PASSIF / DÉMO</strong></div><button class="primary-btn" id="radarRefresh">↻ Actualiser les balises</button><p class="micro-note">Les échos sont générés localement et ne représentent pas des appareils réels.</p></div>
+          </div>
+        </article>
+
+        <article class="panel events-panel">
+          <div class="panel-heading"><div><span class="panel-kicker">FLUX LOCAL</span><h2>Journal d'événements</h2></div><button class="text-btn" id="clearEvents">Effacer</button></div>
+          <div class="event-list" id="eventList" aria-live="polite">
+            <div class="event-row"><span class="event-dot green"></span><div><strong>Console initialisée</strong><small>Interface locale chargée</small></div><time>MAINT.</time></div>
+            <div class="event-row"><span class="event-dot blue"></span><div><strong>Carte de Tunisie prête</strong><small>7 points de démonstration disponibles</small></div><time>INFO</time></div>
+            <div class="event-row"><span class="event-dot amber"></span><div><strong>Mode simulation activé</strong><small>Aucune cible réelle suivie</small></div><time>DEMO</time></div>
+            <div class="event-row"><span class="event-dot green"></span><div><strong>Modules de sécurité actifs</strong><small>Tests exécutés dans le navigateur</small></div><time>OK</time></div>
+          </div>
+          <div class="event-footer"><span class="pulse-dot"></span> Mise à jour locale activée</div>
+        </article>
+      </section>
+
+      <section class="content-grid map-grid">
+        <article class="panel map-panel" id="map">
+          <div class="panel-heading"><div><span class="panel-kicker">MODULE 02 / GÉO-VISUALISATION</span><h2>Carte de Tunisie</h2></div><span class="demo-chip">DONNÉES FICTIVES</span></div>
+          <div class="map-layout">
+            <div class="tunisia-map" aria-label="Carte schématique de la Tunisie">
+              <svg viewBox="0 0 330 420" role="img" aria-label="Carte schématique avec des marqueurs de démonstration">
+                <defs><pattern id="grid" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="#17362f" stroke-width=".6"/></pattern></defs>
+                <rect width="330" height="420" fill="url(#grid)"/>
+                <path class="country-shape" d="M107 24 L145 32 L169 55 L190 70 L211 89 L220 118 L210 143 L226 161 L218 190 L230 213 L220 240 L203 260 L196 286 L177 307 L169 339 L151 376 L130 391 L114 368 L118 342 L105 320 L95 291 L83 263 L75 231 L64 206 L72 178 L61 150 L74 123 L81 91 L91 61 Z"/>
+                <path d="M107 24 L145 32 L169 55 L190 70 L211 89 L220 118 L210 143 L226 161 L218 190 L230 213 L220 240 L203 260 L196 286 L177 307 L169 339 L151 376 L130 391 L114 368 L118 342 L105 320 L95 291 L83 263 L75 231 L64 206 L72 178 L61 150 L74 123 L81 91 L91 61 Z" fill="none" stroke="#4ce8b1" stroke-width="1.4" opacity=".85"/>
+                <g id="mapMarkers"></g>
+              </svg>
+              <div class="map-legend"><span><i class="legend-dot"></i> Nœud de démo</span><span><i class="legend-line"></i> Limite schématique</span></div>
+            </div>
+            <div class="city-panel"><div class="city-panel-head"><strong>NŒUDS RÉGIONAUX</strong><span id="cityTotal">07 NŒUDS</span></div><div id="cityList" class="city-list"></div><p class="micro-note">Carte illustrative non destinée à la navigation. Les points ne représentent pas des téléphones ni des personnes.</p></div>
+          </div>
+        </article>
+        <article class="panel terminal-panel" id="terminal">
+          <div class="panel-heading"><div><span class="panel-kicker">MODULE 03 / INTERFACE CLI</span><h2>Terminal</h2></div><span class="terminal-state">● LOCAL</span></div>
+          <div class="terminal-window">
+            <div class="terminal-bar"><span></span><span></span><span></span><small>kgt-console — demo</small></div>
+            <div class="terminal-output" id="terminalOutput" aria-live="polite"><p><span class="term-green">KGT Console v1.0</span> — environnement local</p><p>Entrez <b>help</b> pour afficher les commandes disponibles.</p><p class="term-muted">Aucune commande n'est envoyée à un serveur.</p></div>
+            <form id="terminalForm" class="terminal-form"><label for="terminalInput">kgt@local:~$</label><input id="terminalInput" autocomplete="off" spellcheck="false" placeholder="help" aria-label="Commande de démonstration"><button aria-label="Exécuter la commande">↵</button></form>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid three-grid">
+        <article class="panel" id="satellite">
+          <div class="panel-heading"><div><span class="panel-kicker">MODULE 04</span><h2>Satellite & SIM</h2></div><span class="demo-chip">SIMULÉ</span></div>
+          <div class="satellite-visual"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="earth">TN</div><div class="satellite-icon">✦</div></div>
+          <div class="data-row"><span>Satellite virtuel</span><strong>ORBIT-07</strong></div><div class="data-row"><span>État de liaison</span><strong class="green-text" id="satState">STABLE</strong></div><div class="data-row"><span>SIM de test</span><strong>DEMO-****-042</strong></div>
+          <button class="secondary-btn full-btn" id="satRefresh">Relancer la simulation</button>
+          <p class="micro-note">Aucun suivi de SIM, d'abonné ou de satellite réel.</p>
+        </article>
+        <article class="panel" id="password">
+          <div class="panel-heading"><div><span class="panel-kicker">MODULE 05</span><h2>Password Lab</h2></div><span class="demo-chip">LOCAL</span></div>
+          <p class="panel-copy">Évaluez la robustesse d'un mot de passe de test. La valeur reste dans votre navigateur.</p>
+          <label class="field-label" for="passwordInput">Mot de passe de test</label><div class="password-field"><input type="password" id="passwordInput" placeholder="Saisir une valeur de test"><button id="togglePassword" type="button" aria-label="Afficher ou masquer">◉</button></div>
+          <div class="strength-track"><span id="strengthBar"></span></div><div class="strength-caption"><span id="strengthLabel">EN ATTENTE</span><span id="strengthScore">0 / 100</span></div>
+          <ul class="check-list" id="passwordChecks"><li>○ 12 caractères ou plus</li><li>○ Lettres minuscules et majuscules</li><li>○ Chiffres et symboles</li></ul>
+          <p class="micro-note">Aucun mot de passe n'est transmis ou enregistré.</p>
+        </article>
+        <article class="panel" id="website">
+          <div class="panel-heading"><div><span class="panel-kicker">MODULE 06</span><h2>Website Lab</h2></div><span class="demo-chip">SANDBOX</span></div>
+          <p class="panel-copy">Générez un lien de démonstration qui ouvre une page 404 sur ce site. Cela ne désactive aucun site externe.</p>
+          <label class="field-label" for="siteLabel">Nom de la page de test</label><input class="text-input" id="siteLabel" placeholder="ex. audit-demo">
+          <button class="primary-btn full-btn" id="create404">Créer une page 404 de démo</button>
+          <div class="generated-link" id="generatedLink" hidden><span id="generatedUrl"></span><button id="copyLink" type="button">Copier</button></div>
+          <p class="micro-note">Le lien utilise le paramètre <code>?demo404=</code> et affiche une erreur visuelle dans cette interface uniquement.</p>
+        </article>
+      </section>
+
+      <section class="panel audio-panel" id="audio">
+        <div class="panel-heading"><div><span class="panel-kicker">MODULE 07 / AUDIO</span><h2>Audio Monitor</h2></div><span class="demo-chip">SANS CAPTURE</span></div>
+        <div class="audio-layout"><div class="audio-icon">◖))</div><div class="audio-main"><strong>Visualiseur audio de démonstration</strong><p>Anime un spectre visuel fictif. Le microphone et les appels ne sont ni activés, ni enregistrés, ni interceptés.</p><div class="equalizer" id="equalizer" aria-hidden="true"></div></div><button class="secondary-btn" id="audioToggle">Démarrer l'animation</button></div>
+      </section>
+
+      <footer class="footer"><div class="footer-brand"><span class="brand-mark small">K<span>G</span>T</span><span>© 2026 KGT Cyber Defense</span></div><div>Plateforme de démonstration éducative · Aucune surveillance réelle</div><a href="#overview">Retour en haut ↑</a></footer>
+    </main>
+  </div>
+
+  <div class="demo404-overlay" id="demo404Overlay" hidden>
+    <div class="error-card"><div class="error-code">404</div><div class="error-line"></div><h2>Page de démonstration introuvable</h2><p>Cette page est une simulation locale KGT. Aucun site externe n'a été modifié.</p><button class="primary-btn" id="close404">Retour à la console</button></div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
