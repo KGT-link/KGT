@@ -1,166 +1,239 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080d16">
-<title>KGT | Cyber Defense Center</title>
+<title>KGT | Cyber Defense</title>
 <style>
+:root{--bg:#080d18;--panel:#111c2b;--line:#28394d;--cyan:#36d8ed;--red:#f04452;--green:#42e3a4;--muted:#96a9bf}
 *{box-sizing:border-box}
-body{margin:0;background:#080d16;color:#e7f0fc;font:15px Arial,sans-serif}
-header{padding:22px;background:#101927;border-bottom:1px solid #284052;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.logo{font-size:26px;font-weight:bold;letter-spacing:3px;color:#36f5a1}
-small,.muted{color:#8da1b9}
-main{max-width:1100px;margin:auto;padding:22px}
-h1{font-size:clamp(25px,5vw,38px)}
-h2{font-size:18px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.panel{background:#101927;border:1px solid #26394d;border-radius:12px;padding:18px;min-width:0}
-.wide{grid-column:1/-1}
-button{background:#123c32;border:1px solid #36a881;color:#7cffc2;border-radius:7px;padding:11px 14px;margin:4px 3px 4px 0;cursor:pointer}
-button:hover{background:#205747}
-input{background:#080d16;border:1px solid #31465c;color:white;border-radius:7px;padding:12px;width:100%;margin:7px 0}
-.result{color:#36f5a1;margin-top:12px;min-height:20px;overflow-wrap:anywhere}
-.radar{width:min(70vw,250px);aspect-ratio:1;border:1px solid #36a881;border-radius:50%;margin:18px auto;position:relative;overflow:hidden;background:repeating-radial-gradient(circle,transparent 0 25px,#245448 26px 27px),linear-gradient(90deg,transparent 49.5%,#245448 50%,transparent 50.5%),linear-gradient(transparent 49.5%,#245448 50%,transparent 50.5%),#091b20}
-.radar:before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(transparent, #36f5a166,transparent 70deg);animation:spin 3s linear infinite}
+body{margin:0;background:var(--bg);color:#edf5ff;font-family:Arial,Tahoma,sans-serif}
+header{padding:18px 22px;background:#0c1422;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:bold;color:var(--red);letter-spacing:2px}
+header small{color:var(--muted)}
+main{max-width:1100px;margin:auto;padding:18px}
+h1{font-size:25px}h2{font-size:18px;margin-top:0}
+p,.muted{color:var(--muted);line-height:1.7;font-size:13px}
+.status{color:var(--green);font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
+.stat strong{display:block;font-size:23px;margin:8px 0;color:var(--cyan)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+button{background:#193044;color:white;border:1px solid #36536b;padding:10px 13px;border-radius:9px;cursor:pointer;margin:4px 2px}
+button:hover{border-color:var(--cyan)}
+input{width:100%;background:#080f1b;border:1px solid #35475c;border-radius:8px;padding:12px;color:white;margin:8px 0}
+.output{background:#060b12;border:1px solid #253549;border-radius:9px;padding:12px;min-height:70px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--green);font:13px/1.8 monospace}
+.radar{width:210px;height:210px;max-width:100%;border:1px solid var(--cyan);border-radius:50%;margin:18px auto;position:relative;overflow:hidden;background:repeating-radial-gradient(circle,transparent 0 28px,#28505c 29px 30px),linear-gradient(90deg,transparent 49%,#28505c 50%,transparent 51%),linear-gradient(transparent 49%,#28505c 50%,transparent 51%),#0a1924}
+.radar:before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(transparent 0 75%,#36d8ed99);animation:spin 4s linear infinite}
+.radar:after{content:"";position:absolute;top:30%;left:65%;width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 15px var(--red),-60px 80px 0 var(--green)}
 @keyframes spin{to{transform:rotate(360deg)}}
-.cities{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.city{padding:12px 5px;text-align:center;background:#0b1420;border:1px solid #26394d;border-radius:7px}
-.log{background:#050a10;border:1px solid #26394d;border-radius:7px;padding:12px;height:160px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.7 monospace;color:#36f5a1}
-.row{display:flex;gap:8px;align-items:center}
-.row input{flex:1;min-width:0}
-.bar{height:8px;background:#29384a;border-radius:9px;overflow:hidden;margin:12px 0}
-.bar span{display:block;height:100%;width:0;background:#36f5a1;transition:width .2s}
-footer{text-align:center;color:#8da1b9;padding:25px;font-size:12px}
-@media(max-width:650px){main{padding:12px}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.panel{padding:14px}.cities{grid-template-columns:repeat(2,1fr)}}
+.sat-screen{height:160px;background:radial-gradient(ellipse,#173b51,#07111c);border:1px solid #285367;border-radius:10px;display:grid;place-items:center;position:relative;overflow:hidden}
+.earth{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#62c8dc,#17405c 60%,#09111c);box-shadow:0 0 25px #36d8ed55}
+.orbit{position:absolute;width:180px;height:65px;border:1px solid var(--cyan);border-radius:50%;transform:rotate(-25deg);animation:spin 5s linear infinite}
+.satellite{position:absolute;font-size:22px;top:22px;left:calc(50% + 55px);animation:spin 5s linear infinite}
+.sim{padding:16px;border-radius:12px;background:linear-gradient(120deg,#243b53,#101827);border:1px solid #52637a}
+.chip{width:38px;height:29px;border:2px solid #e5c878;border-radius:5px;margin:15px 0;background:repeating-linear-gradient(90deg,transparent 0 9px,#e5c87855 10px 11px)}
+.bars{color:var(--green);font-size:22px;letter-spacing:4px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.radar{width:180px;height:180px}main{padding:12px}}
 </style>
 </head>
 <body>
 <header>
- <div class="logo">KGT <small style="display:block;font-size:10px">CYBER DEFENSE CENTER</small></div>
- <div style="color:#36f5a1">● DEMO SYSTEM ONLINE</div>
+  <div><div class="logo">🛡 KGT</div><small>KINETIC GUARD TUNISIA</small></div>
+  <div class="status">● DEMO SYSTEM ONLINE</div>
 </header>
 <main>
- <p class="muted">SECURITY OPERATIONS CENTER / TUNISIA</p>
- <h1>Cyber Defense Dashboard</h1>
- <p class="muted">Interface éducative — données de simulation uniquement.</p>
- <div class="grid">
-  <section class="panel">
-   <h2>État du système</h2><h2 style="color:#36f5a1">OPERATIONAL</h2>
-   <button onclick="say('Système de démonstration opérationnel.')">Vérifier le système</button>
-   <button onclick="document.getElementById('clock').textContent=new Date().toLocaleString()">Actualiser l'heure</button>
-   <div id="clock" class="result"></div>
+  <h1>مركز المراقبة السيبرانية</h1>
+  <p>لوحة تفاعلية تعليمية لمحاكاة أدوات الأمن الرقمي.</p>
+  <p>⚠ جميع البيانات تجريبية ولا يوجد اتصال بأجهزة أو شبكات حقيقية.</p>
+
+  <section class="stats">
+    <div class="stat">حالة النظام<strong id="system">مستقر</strong></div>
+    <div class="stat">الأحداث<strong id="events">024</strong></div>
+    <div class="stat">الوحدات<strong>06</strong></div>
   </section>
-  <section class="panel">
-   <h2>Radar de simulation</h2><div class="radar"></div>
-   <button onclick="say('Radar de démonstration activé. Aucun appareil réel n’est suivi.')">Lancer le radar</button>
-   <div id="radarResult" class="result"></div>
+
+  <section class="grid">
+    <article class="card">
+      <h2>◉ الرادار الأمني</h2>
+      <div class="radar" id="radar"></div>
+      <p id="radarStatus">الرادار التجريبي نشط</p>
+      <button onclick="radarToggle()">تشغيل / إيقاف الرادار</button>
+      <button onclick="refreshRadar()">تحديث الأهداف</button>
+    </article>
+
+    <article class="card">
+      <h2>🛰 Satellite Interface</h2>
+      <div class="sat-screen">
+        <div class="earth"></div>
+        <div class="orbit" id="orbit"></div>
+        <div class="satellite" id="satellite">🛰️</div>
+      </div>
+      <p>معرّف القمر: <b id="satId">KGT-SAT-07</b></p>
+      <p>الارتفاع: <b id="altitude">540 km</b></p>
+      <p>السرعة: <b id="speed">7.6 km/s</b></p>
+      <p>الحالة: <b id="satStatus">نشط</b></p>
+      <button onclick="satToggle()">تشغيل / إيقاف المحاكاة</button>
+      <button onclick="satRefresh()">تحديث بيانات القمر</button>
+    </article>
+
+    <article class="card">
+      <h2>▣ SIM Interface</h2>
+      <div class="sim">
+        <b>KGT • DEMO SIM</b>
+        <div class="chip"></div>
+        <small>SIM ID: DEMO-2048-XXXX</small>
+        <h3 id="network">KGT TEST NETWORK</h3>
+        <div class="bars" id="bars">▂▄▆█</div>
+      </div>
+      <p>الحالة: <b id="simStatus">متصلة تجريبيًا</b></p>
+      <p>قوة الإشارة: <b id="signal">4 / 4</b></p>
+      <p>نوع الشبكة: <b id="networkType">4G — محاكاة</b></p>
+      <button onclick="simToggle()">فصل / إعادة الاتصال التجريبي</button>
+      <button onclick="simRefresh()">تحديث الشبكة</button>
+    </article>
+
+    <article class="card">
+      <h2>⌘ الطرفية التجريبية</h2>
+      <div class="output" id="terminal">KGT Training Shell
+اكتب help لعرض الأوامر.</div>
+      <input id="command" placeholder="help أو status أو scan-demo">
+      <button onclick="runCommand()">تنفيذ الأمر</button>
+      <button onclick="clearTerminal()">مسح الطرفية</button>
+    </article>
+
+    <article class="card">
+      <h2>🔐 فاحص قوة كلمة المرور</h2>
+      <input id="password" type="password" placeholder="اكتب كلمة اختبارية فقط">
+      <p>النتيجة: <b id="strength">لم يبدأ الفحص</b></p>
+      <button onclick="checkPassword()">فحص القوة</button>
+      <button onclick="showPassword()">إظهار / إخفاء</button>
+      <p>يتم الفحص محليًا. لا تستخدم كلمة مرور حساب حقيقي.</p>
+    </article>
+
+    <article class="card">
+      <h2>◎ فاحص شكل الرابط</h2>
+      <input id="url" placeholder="example.com">
+      <button onclick="checkURL()">تحليل الرابط</button>
+      <div class="output" id="urlResult">أدخل رابطًا لفحص شكله.</div>
+      <p>لا يفتح هذا الفاحص الرابط ولا يضمن سلامته.</p>
+    </article>
+
+    <article class="card">
+      <h2>〽 المؤشر البصري</h2>
+      <div id="equalizer" style="height:60px;display:flex;gap:7px;align-items:center;justify-content:center">
+        <span>▂</span><span>▅</span><span>█</span><span>▄</span><span>▇</span><span>▃</span><span>█</span>
+      </div>
+      <button onclick="equalizerToggle()">تشغيل / إيقاف الحركة</button>
+      <p>حركة مرئية فقط؛ لا يستخدم الميكروفون.</p>
+    </article>
+
+    <article class="card">
+      <h2>▤ سجل الأحداث</h2>
+      <div class="output" id="log">[INFO] تم تشغيل لوحة KGT.
+[SAFE] جميع الوظائف محاكاة محلية.</div>
+      <button onclick="addEvent()">إضافة حدث</button>
+      <button onclick="clearLog()">مسح السجل</button>
+    </article>
   </section>
-  <section class="panel">
-   <h2>Carte de Tunisie — démo</h2>
-   <p class="muted">Points fictifs, sans géolocalisation réelle.</p>
-   <div class="cities">
-    <div class="city">Tunis<br><span class="result">● DEMO</span></div>
-    <div class="city">Bizerte<br><span class="result">● DEMO</span></div>
-    <div class="city">Nabeul<br><span class="result">● DEMO</span></div>
-    <div class="city">Sousse<br><span class="result">● DEMO</span></div>
-    <div class="city">Sfax<br><span class="result">● DEMO</span></div>
-    <div class="city">Tozeur<br><span class="result">● DEMO</span></div>
-   </div>
-   <button onclick="say('Carte de démonstration actualisée.')">Actualiser la carte</button>
-  </section>
-  <section class="panel">
-   <h2>Terminal KGT</h2>
-   <div id="terminal" class="log">KGT Cyber Defense Terminal
-Tapez help pour commencer.</div>
-   <div class="row"><input id="cmd" placeholder="help, status, scan, radar, clear"><button onclick="run()">Exécuter</button></div>
-  </section>
-  <section class="panel">
-   <h2>Force du mot de passe</h2>
-   <p class="muted">Test local dans le navigateur. N'entrez pas de vrai mot de passe.</p>
-   <input id="pw" type="password" placeholder="Mot de passe fictif">
-   <div class="bar"><span id="strength"></span></div>
-   <div id="pwResult" class="result">En attente.</div>
-   <button onclick="let p=document.getElementById('pw');p.type=p.type==='password'?'text':'password'">Afficher / masquer</button>
-   <button onclick="document.getElementById('pw').value='';check()">Effacer</button>
-  </section>
-  <section class="panel">
-   <h2>Satellite & SIM</h2>
-   <p class="muted">Simulation visuelle uniquement. Aucun appareil réel n'est suivi.</p>
-   <button onclick="say('État satellite : simulation active.')">Tester satellite</button>
-   <button onclick="say('État SIM : simulation active.')">Tester SIM</button>
-  </section>
-  <section class="panel">
-   <h2>Audio Monitor</h2>
-   <p class="muted">Aucun microphone utilisé, aucun son enregistré.</p>
-   <button onclick="audio()">Animer l'égaliseur</button>
-   <div id="audioResult" class="result">Prêt.</div>
-   <div id="eq" style="display:flex;align-items:end;gap:6px;height:55px;margin-top:12px"></div>
-  </section>
-  <section class="panel">
-   <h2>Website Lab</h2>
-   <p class="muted">Test simulé — aucun site externe ne sera modifié.</p>
-   <input id="site" placeholder="Nom de domaine de démonstration">
-   <button onclick="website()">Tester le site</button>
-   <div id="siteResult" class="result"></div>
-  </section>
- </div>
 </main>
-<footer>KGT CYBER DEFENSE · SIMULATION ÉDUCATIVE · DONNÉES FICTIVES</footer>
+<footer>KGT — Kinetic Guard Tunisia 🇹🇳 | واجهة تعليمية تجريبية</footer>
+
 <script>
-function say(message){alert(message)}
-function log(message){
- const t=document.getElementById('terminal');
- t.textContent+='\n'+message;
- t.scrollTop=t.scrollHeight;
+let count=24,radarOn=true,satOn=true,simOn=true,eqOn=true;
+function eventLog(message){
+  count++;
+  document.getElementById('events').textContent=String(count).padStart(3,'0');
+  const log=document.getElementById('log');
+  log.textContent='['+new Date().toLocaleTimeString()+'] '+message+'\n'+log.textContent;
 }
-function run(){
- const input=document.getElementById('cmd');
- const command=input.value.trim().toLowerCase();
- if(!command)return;
- if(command==='clear'){document.getElementById('terminal').textContent='';input.value='';return}
- const responses={
-  help:'Commandes disponibles : help, status, scan, radar, clear',
-  status:'KGT DEMO : système opérationnel.',
-  scan:'Simulation terminée. Aucun réseau réel n’a été scanné.',
-  radar:'Radar visuel actif. Aucune cible réelle.'
- };
- log('KGT > '+command);
- log(responses[command]||'Commande inconnue. Tapez help.');
- input.value='';
+function radarToggle(){
+  radarOn=!radarOn;
+  document.getElementById('radar').style.animationPlayState=radarOn?'running':'paused';
+  document.getElementById('radarStatus').textContent=radarOn?'الرادار التجريبي نشط':'الرادار التجريبي متوقف';
+  eventLog('تغيير حالة الرادار التجريبي.');
 }
-document.getElementById('cmd').addEventListener('keydown',e=>{if(e.key==='Enter')run()});
-function check(){
- const v=document.getElementById('pw').value;
- let s=0;
- if(v.length>=8)s++;
- if(/[a-z]/.test(v)&&/[A-Z]/.test(v))s++;
- if(/[0-9]/.test(v))s++;
- if(/[^a-zA-Z0-9]/.test(v))s++;
- document.getElementById('strength').style.width=(s*25)+'%';
- document.getElementById('pwResult').textContent=v?['Très faible','Faible','Moyen','Fort','Très fort'][s]:'En attente.';
+function refreshRadar(){
+  document.getElementById('radarStatus').textContent='تم تحديث '+(Math.floor(Math.random()*8)+1)+' أهداف افتراضية';
+  eventLog('تحديث أهداف الرادار الافتراضية.');
 }
-document.getElementById('pw').addEventListener('input',check);
-function audio(){
- const eq=document.getElementById('eq');
- eq.innerHTML='';
- for(let i=0;i<12;i++){
-  const bar=document.createElement('div');
-  bar.style.cssText='flex:1;background:#36f5a1;border-radius:3px 3px 0 0;transition:height .2s';
-  bar.style.height=(10+Math.random()*90)+'%';
-  eq.appendChild(bar);
- }
- document.getElementById('audioResult').textContent='Animation de démonstration active.';
+function satToggle(){
+  satOn=!satOn;
+  ['orbit','satellite'].forEach(id=>document.getElementById(id).style.animationPlayState=satOn?'running':'paused');
+  document.getElementById('satStatus').textContent=satOn?'نشط':'متوقف';
+  eventLog('تغيير حالة محاكاة Satellite.');
 }
-function website(){
- const v=document.getElementById('site').value.trim();
- document.getElementById('siteResult').textContent=v?'Test fictif terminé pour '+v+'. Aucun site externe n’a été contacté.':'Entrez un nom de domaine pour la simulation.';
+function satRefresh(){
+  document.getElementById('satId').textContent='KGT-SAT-'+(10+Math.floor(Math.random()*90));
+  document.getElementById('altitude') .textContent=(400+Math.floor(Math.random()*300))+' km';
+  document.getElementById('speed').textContent=(7.2+Math.random()*.8).toFixed(2)+' km/s';
+  eventLog('تحديث بيانات القمر الافتراضية.');
 }
-function clock(){
- document.getElementById('clock').textContent='Heure locale : '+new Date().toLocaleTimeString();
+function simToggle(){
+  simOn=!simOn;
+  document.getElementById('simStatus').textContent=simOn?'متصلة تجريبيًا':'مفصولة تجريبيًا';
+  document.getElementById('signal').textContent=simOn?'4 / 4':'0 / 4';
+  document.getElementById('network').textContent=simOn?'KGT TEST NETWORK':'NO DEMO CONNECTION';
+  document.getElementById('bars').style.opacity=simOn?'1':'.2';
+  eventLog('تغيير حالة اتصال SIM الافتراضي.');
 }
-clock();
+function simRefresh(){
+  const n=1+Math.floor(Math.random()*4);
+  document.getElementById('signal').textContent=n+' / 4';
+  document.getElementById('bars').textContent=['▂','▄','▆','█'].slice(0,n).join('');
+  document.getElementById('networkType').textContent=['3G','4G','5G'][Math.floor(Math.random()*3)]+' — محاكاة';
+  eventLog('تحديث إشارة SIM الافتراضية.');
+}
+function runCommand(){
+  const cmd=document.getElementById('command').value.trim().toLowerCase();
+  let result='أمر غير معروف. اكتب help.';
+  if(cmd==='help')result='الأوامر: help, status, scan-demo, about';
+  if(cmd==='status')result='النظام يعمل. جميع الوظائف محاكاة محلية.';
+  if(cmd==='scan-demo')result='انتهت المحاكاة: لا يوجد مسح أو اتصال حقيقي.';
+  if(cmd==='about')result='KGT Cyber Defense — واجهة تدريب آمنة.';
+  if(cmd==='clear'){clearTerminal();return;}
+  document.getElementById('terminal').textContent+='\\n> '+cmd+'\\n'+result;
+  document.getElementById('command').value='';
+  eventLog('تنفيذ أمر تدريبي: '+cmd);
+}
+function clearTerminal(){document.getElementById('terminal').textContent='KGT Training Shell';}
+function checkPassword(){
+  const v=document.getElementById('password').value;
+  let s=0;
+  if(v.length>=8)s++;
+  if(v.length>=12)s++;
+  if(/[a-z]/.test(v)&&/[A-Z]/.test(v))s++;
+  if(/[0-9]/.test(v))s++;
+  if(/[^A-Za-z0-9]/.test(v))s++;
+  document.getElementById('strength').textContent=!v?'أدخل كلمة اختبارية':s<2?'ضعيفة':s<4?'متوسطة':'قوية';
+}
+function showPassword(){
+  const p=document.getElementById('password');
+  p.type=p.type==='password'?'text':'password';
+}
+function checkURL(){
+  const raw=document.getElementById('url').value.trim();
+  const out=document.getElementById('urlResult');
+  if(!raw){out.textContent='أدخل رابطًا أولًا.';return;}
+  try{
+    const u=new URL(raw.includes('://')?raw:'https://'+raw);
+    const notes=[];
+    if(u.protocol!=='https:')notes.push('لا يستخدم HTTPS');
+    if(u.username||u.password)notes.push('يحتوي على بيانات دخول داخل الرابط');
+    if(u.hostname.includes('xn--'))notes.push('اسم نطاق يحتاج إلى تحقق إضافي');
+    if(/^\d{1,3}(\.\d{1,3}){3}$/.test(u.hostname))notes.push('يستخدم عنوان IP');
+    out.textContent=notes.length?'ملاحظات: '+notes.join('؛ ')+'. تحقق من المصدر قبل الفتح.':'لم تظهر مؤشرات شكلية بسيطة، لكن هذا لا يثبت أن الرابط آمن.';
+    eventLog('تحليل شكلي لرابط دون فتحه.');
+  }catch(e){out.textContent='صيغة الرابط غير واضحة.';}
+}
+function equalizerToggle(){
+  eqOn=!eqOn;
+  document.getElementById('equalizer').style.opacity=eqOn?'1':'.25';
+  eventLog(eqOn?'تشغيل المؤشر المرئي.':'إيقاف المؤشر المرئي.');
+}
+function addEvent(){eventLog('تم إنشاء حدث تجريبي جديد.');}
+function clearLog(){document.getElementById('log').textContent='تم مسح سجل العرض.';}
 </script>
 </body>
 </html>
-
